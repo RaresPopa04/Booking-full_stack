@@ -10,6 +10,17 @@ import usersRoute from './routes/users.js'
 dotenv.config();
 const app = express()
 
+
+app.use((req, res, next) => {
+    res.setHeader('Access-Control-Allow-Origin', 'http://localhost:3001');
+    // You can specify multiple origins by separating them with commas:
+    // res.setHeader('Access-Control-Allow-Origin', 'http://localhost:3001, http://example.com');
+    res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE');
+    res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
+    res.setHeader('Access-Control-Allow-Credentials', 'true'); // Optional, if you're using cookies or sessions
+    next();
+  });
+
 const connect = async ()=>{
     try {
         await mongoose.connect(process.env.MONGO)
